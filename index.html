@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>/g/ - Technology</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --bg: #fcf4e8;
+    --post: #f0e0d6;
+    --reply: #d6caba;
+    --green: #789922;
+    --red: #d00;
+    --blue: #0000ff;
+    --spoiler: #888;
+  }
+  body { margin:0; font-family:Arial,sans-serif; background:var(--bg); color:#000; display:flex; }
+  a { color:#d00; text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  .green { color:var(--green); }
+  .red { color:var(--red); }
+  .blue { color:var(--blue); }
+  .spoiler { background:#888; color:#888; border-radius:3px; padding:0 3px; }
+  .spoiler:hover { color:#fff; background:#000; }
+  .quotelink { color:var(--green); cursor:pointer; }
+  .post-img { max-width:250px; cursor:pointer; }
+  #sidebar {
+    width:200px; background:#eee; padding:10px; border-right:1px solid #ccc;
+    position:fixed; top:0; bottom:0; overflow-y:auto; font-size:0.9em;
+  }
+  #sidebar a { display:block; padding:4px 8px; margin:2px 0; background:var(--post); }
+  #sidebar a:hover { background:#e0d0c6; }
+  #main { margin-left:220px; padding:10px; width:calc(100% - 220px); }
+  #header { padding:8px 0; border-bottom:1px solid #ccc; margin-bottom:10px; }
+  .btn { background:#d6caba; padding:6px 12px; margin:0 5px; display:inline-block; cursor:pointer; border:1px solid #aaa; }
+  .thread, .op, .reply { background:var(--post); margin:15px 0; padding:10px; border:1px solid #ccc; }
+  .reply { margin-left:30px; border-left:3px solid var(--green); }
+  .post-info { font-size:0.85em; color:#666; margin-bottom:8px; }
+  .hidden { display:none; }
+  #hover-preview {
+    position:absolute; pointer-events:none; z-index:9999;
+    max-width:300px; max-height:300px; box-shadow:0 0 10px rgba(0,0,0,0.5);
+    border:2px solid #000; display:none;
+  }
+  .tree-hidden .reply { display:none; }
+  .tree-hidden .reply[data-parent] { display:block; }
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <strong>Boards</strong><br>
+  <div id="board-list"></div>
+</div>
+
+<div id="main">
+  <div id="header">
+    <span id="nav-buttons"></span>
+    <span id="options-btn" class="btn hidden" onclick="toggleTree()">Tree View: OFF</span>
+  </div>
+
+  <div id="catalog" class="hidden"></div>
+  <div id="thread-view"></div>
+  <div id="loader">Loading...</div>
+</div>
+
+<img id="hover-preview">
+
+<script>
+const PROXY = "https://api.codetabs.com/v1/proxy?quest=";
+const API = "https://a.4cdn.org";
+let currentBoard = "";
+let currentThread = 0;
+let treeMode = false;
+
+async function fetchJSON(url) {
+  const r = await fetch(PROXY + encodeURIComponent(url));
+  if (!r.ok) throw new Error("Fetch failed");
+  return await r.json();
+}
+
+async function loadBoards() {
+  const data = await fetchJSON(API + "/boards.json");
+  const container = document.getElementById("board-list");
+  data.boards.forEach(b => {
+    const a = document.createElement("a");
+    a.href = "#";
+    a.textContent = "/" + b.board + "/";
+    a.title = b.title;
+    a.onclick = e => { e.preventDefault(); loadCatalog(b.board); };
+    container.appendChild(a);
+  });
+}
+
+async function loadCatalog(board) {
+  currentBoard = board;
+  document.title = `/${board}/ - Catalog`;
+  document.getElementById("catalog").classList.remove("hidden");
+  document.getElementById("thread-view").classList.add("hidden");
+  document.getElementById("loader").textContent = `Loading /${board}/...`;
+  document.getElementById("loader").classList.remove("hidden");
+
+  document.getElementById("nav-buttons").innerHTML = `
+    <span class="btn" onclick="loadCatalog('${board}')">Catalog</span>
+  `;
+
+  const catalog = await fetchJSON(API + `/${board}/catalog.json`);
+  const container = document.getElementById("catalog");
+  container.innerHTML = "";
+
+  const grid = document.createElement("div");
+  grid.style.display = "grid";
+  grid.style.gridTemplateColumns = "repeat(auto-fill, minmax(250px, 1fr))";
+  grid.style.gap = "15px";
+
+  catalog.forEach(page => page.threads.forEach(t => {
+    if (!t.sub && !t.com) return;
+    const d = document.createElement("div");
+    d.className = "thread";
+    d.onclick = () => loadThread(board, t.no);
+    d.style.cursor = "pointer";
+
+    let html = `<small>${t.no}</small><br>`;
+    if (t.tim) html += `<img src="https://i.4cdn.org/${board}/${t.tim}s.jpg" class="post-img" loading="lazy" onmouseover="showPreview(event,this)" onmouseout="hidePreview()"><br>`;
+    html += `<strong>${(t.sub||'').replace(/<[^>]*>/g,'') || 'No title'}</strong><br>`;
+    html += `<small>${strip(t.com||'').slice(0,140)}...</small><br>`;
+    html += `<small>R:${t.replies} I:${t.images}</small>`;
+    d.innerHTML = html;
+    grid.appendChild(d);
+  }));
+
+  container.appendChild(grid);
+  document.getElementById("loader").classList.add("hidden");
+}
+
+async function loadThread(board, threadId) {
+  currentBoard = board;
+  currentThread = threadId;
+  document.title = `/${board}/ - ${threadId}`;
+  document.getElementById("catalog").classList.add("hidden");
+  document.getElementById("thread-view").classList.remove("hidden");
+  document.getElementById("options-btn").classList.remove("hidden");
+  document.getElementById("loader").textContent = "Loading thread...";
+  document.getElementById("loader").classList.remove("hidden");
+
+  document.getElementById("nav-buttons").innerHTML = `
+    <span class="btn" onclick="loadCatalog('${board}')">‹ Catalog</span>
+  `;
+
+  const data = await fetchJSON(API + `/${board}/thread/${threadId}.json`);
+  const container = document.getElementById("thread-view");
+  container.innerHTML = "";
+
+  data.posts.forEach(post => {
+    const div = document.createElement("div");
+    div.className = post.resto === 0 ? "op" : "reply";
+    div.dataset.parent = post.resto || post.no;
+    div.id = "p" + post.no;
+
+    let html = `<div class="post-info">
+      <strong>${esc(post.name||"Anonymous")}</strong>
+      ${post.now} No.<a href="#p${post.no}" class="quotelink">${post.no}</a>
+    </div>`;
+
+    if (post.tim) {
+      const thumb = `https://i.4cdn.org/${board}/${post.tim}s.jpg`;
+      const full = `https://i.4cdn.org/${board}/${post.tim}${post.ext}`;
+      html += `<a href="${full}" target="_blank">
+        <img src="${thumb}" class="post-img" loading="lazy" 
+             onmouseover="showPreview(event,this,'${full}')" onmouseout="hidePreview()">
+      </a>`;
+    }
+
+    if (post.com) {
+      html += `<blockquote>${format(post.com)}</blockquote>`;
+    }
+
+    div.innerHTML = html;
+    container.appendChild(div);
+
+    // Make >>links clickable
+    div.querySelectorAll("a.quotelink").forEach(link => {
+      if (link.textContent.startsWith(">>")) {
+        const num = link.textContent.slice(2);
+        link.onclick = e => {
+          e.preventDefault();
+          const el = document.getElementById("p" + num);
+          if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+        };
+      }
+    });
+  });
+
+  document.getElementById("loader").classList.add("hidden");
+}
+
+function toggleTree() {
+  treeMode = !treeMode;
+  document.getElementById("options-btn").textContent = "Tree View: " + (treeMode ? "ON" : "OFF");
+  document.getElementById("thread-view").classList.toggle("tree-hidden", !treeMode);
+}
+
+function format(text) {
+  return text
+    .replace(/<br>/g, "\n")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/\n/g, "<br>")
+    .replace(/^&gt;(.+)/gm, '<span class="green">&gt;$1</span>')
+    .replace(/&gt;&gt;(\d+)/g, '<a href="#p$1" class="quotelink">&gt;&gt;$1</a>')
+    .replace(/\*\*(.+?)\*\*/g, '<span class="red">$1</span>')
+    .replace(/\[spoiler\](.+?)\[\/spoiler\]/g, '<span class="spoiler">$1</span>');
+}
+
+function strip(html) {
+  const d = document.createElement("div");
+  d.innerHTML = html;
+  return d.textContent || "";
+}
+
+function esc(t) {
+  const d = document.createElement("div");
+  d.textContent = t;
+  return d.innerHTML;
+}
+
+// Image hover preview (follows cursor)
+function showPreview(e, thumb, full = null) {
+  const img = document.getElementById("hover-preview");
+  img.src = full || thumb.src.replace("s.jpg", ".jpg").replace("thumb", "");
+  img.style.display = "block";
+  document.onmousemove = ev => {
+    img.style.left = (ev.pageX + 15) + "px";
+    img.style.top = (ev.pageY + 15) + "px";
+  };
+}
+
+function hidePreview() {
+  document.getElementById("hover-preview").style.display = "none";
+  document.onmousemove = null;
+}
+
+// Start
+loadBoards();
+</script>
+</body>
+</html>
