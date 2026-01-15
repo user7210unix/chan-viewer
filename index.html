@@ -2,222 +2,528 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>/g/ - Technology</title>
+<title>4chan Viewer</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="dns-prefetch" href="https://a.4cdn.org">
+<link rel="dns-prefetch" href="https://i.4cdn.org">
+<link rel="preconnect" href="https://a.4cdn.org">
+<link rel="preconnect" href="https://i.4cdn.org">
 <style>
+  /* Yotsuba (Default) */
   :root {
-    --bg: #fcf4e8;
+    --bg: #ffffee;
     --post: #f0e0d6;
-    --reply: #d6caba;
-    --green: #789922;
-    --red: #d00;
-    --blue: #0000ff;
-    --spoiler: #888;
+    --reply: #d6daf0;
+    --border: #d9bfb7;
+    --text: #800000;
+    --name: #117743;
+    --link: #0000ee;
+    --link-hover: #dd0000;
+    --quote: #789922;
+    --button: #f0e0d6;
+    --button-border: #ccc;
   }
-  body { margin:0; font-family:Arial,sans-serif; background:var(--bg); color:#000; display:flex; }
-  a { color:#d00; text-decoration:none; }
-  a:hover { text-decoration:underline; }
-  .green { color:var(--green); }
-  .red { color:var(--red); }
-  .blue { color:var(--blue); }
-  .spoiler { background:#888; color:#888; border-radius:3px; padding:0 3px; }
-  .spoiler:hover { color:#fff; background:#000; }
-  .quotelink { color:var(--green); cursor:pointer; }
-  .post-img { max-width:250px; cursor:pointer; }
+  
+  /* Tomorrow (Dark) */
+  .theme-tomorrow {
+    --bg: #1d1f21;
+    --post: #282a2e;
+    --reply: #282a2e;
+    --border: #373b41;
+    --text: #c5c8c6;
+    --name: #b5bd68;
+    --link: #81a2be;
+    --link-hover: #cc6666;
+    --quote: #b5bd68;
+    --button: #373b41;
+    --button-border: #1d1f21;
+  }
+  
+  /* Yotsuba B (Blue) */
+  .theme-yotsuba-b {
+    --bg: #eef2ff;
+    --post: #d6daf0;
+    --reply: #d6daf0;
+    --border: #b7c5d9;
+    --text: #000;
+    --name: #117743;
+    --link: #34345c;
+    --link-hover: #dd0000;
+    --quote: #789922;
+    --button: #d6daf0;
+    --button-border: #b7c5d9;
+  }
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: arial, helvetica, sans-serif;
+    font-size: 10pt;
+    background: var(--bg);
+    color: var(--text);
+  }
+  
+  a { color: var(--link); text-decoration: underline; }
+  a:hover { color: var(--link-hover); }
+  
+  .postername { color: var(--name); font-weight: bold; }
+  .postertrip { color: #228854; }
+  .quote { color: var(--quote); }
+  .quotelink { color: var(--link); text-decoration: none; }
+  .quotelink:hover { color: var(--link-hover); }
+  .deadlink { color: #808080; text-decoration: none; }
+  
+  /* Layout */
   #sidebar {
-    width:200px; background:#eee; padding:10px; border-right:1px solid #ccc;
-    position:fixed; top:0; bottom:0; overflow-y:auto; font-size:0.9em;
+    width: 200px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    overflow-y: auto;
+    background: var(--post);
+    border-right: 1px solid var(--border);
+    padding: 10px;
+    font-size: 9pt;
   }
-  #sidebar a { display:block; padding:4px 8px; margin:2px 0; background:var(--post); }
-  #sidebar a:hover { background:#e0d0c6; }
-  #main { margin-left:220px; padding:10px; width:calc(100% - 220px); }
-  #header { padding:8px 0; border-bottom:1px solid #ccc; margin-bottom:10px; }
-  .btn { background:#d6caba; padding:6px 12px; margin:0 5px; display:inline-block; cursor:pointer; border:1px solid #aaa; }
-  .thread, .op, .reply { background:var(--post); margin:15px 0; padding:10px; border:1px solid #ccc; }
-  .reply { margin-left:30px; border-left:3px solid var(--green); }
-  .post-info { font-size:0.85em; color:#666; margin-bottom:8px; }
-  .hidden { display:none; }
-  #hover-preview {
-    position:absolute; pointer-events:none; z-index:9999;
-    max-width:300px; max-height:300px; box-shadow:0 0 10px rgba(0,0,0,0.5);
-    border:2px solid #000; display:none;
+  
+  /*
+  #main {
+    margin-left: 220px;
+    padding: 10px;
+    max-width: 1200px;
   }
-  .tree-hidden .reply { display:none; }
-  .tree-hidden .reply[data-parent] { display:block; }
+  */
+  
+  #main {
+  margin-left: 220px;
+  padding: 10px 20px 20px 20px;
+  max-width: 1600px;              
+  margin-right: auto;             
+  margin-left: 220px;             
+}
+  
+  /* Header */
+  #header {
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+  }
+  
+  .btn {
+    background: var(--button);
+    border: 1px solid var(--button-border);
+    color: var(--text);
+    padding: 4px 8px;
+    margin: 2px;
+    cursor: pointer;
+    font-size: 9pt;
+    font-family: arial, helvetica, sans-serif;
+  }
+  .btn:hover { background: var(--reply); }
+  
+  #theme-selector {
+    float: right;
+    font-size: 9pt;
+  }
+  #theme-selector select {
+    background: var(--button);
+    border: 1px solid var(--button-border);
+    color: var(--text);
+    padding: 2px;
+    font-size: 9pt;
+  }
+  
+  /* Sidebar */
+  #sidebar h4 {
+    margin: 10px 0 5px 0;
+    font-size: 10pt;
+  }
+  
+  #sidebar a {
+    display: block;
+    padding: 3px 5px;
+    margin: 1px 0;
+  }
+  
+  #board-search {
+    width: 100%;
+    padding: 4px;
+    margin-bottom: 8px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 9pt;
+  }
+  
+  /* Catalog */
+  #catalog {
+    display: block;
+  }
+  
+  .catalog-grid {
+    display: table;
+    width: 100%;
+  }
+  
+  .catalog-item {
+    display: inline-block;
+    vertical-align: top;
+    width: 150px;
+    margin: 5px;
+    padding: 5px;
+    background: var(--post);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    font-size: 9pt;
+  }
+  
+  .catalog-item:hover { background: var(--reply); }
+  
+  .catalog-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .catalog-stats {
+    font-size: 8pt;
+    color: var(--text);
+    margin-top: 4px;
+  }
+  
+  /* Thread */
+  .post {
+    background: var(--post);
+    border: 1px solid var(--border);
+    padding: 5px;
+    margin: 5px 0;
+  }
+  
+  .op {
+    background: var(--post);
+  }
+  
+  .reply {
+    background: var(--reply);
+    margin-left: 20px;
+  }
+  
+  .postInfo {
+    font-size: 9pt;
+    margin-bottom: 5px;
+  }
+  
+  blockquote {
+    margin: 5px 0;
+  }
+  
+  .fileThumb {
+    float: left;
+    margin: 5px 20px 5px 0;
+  }
+  
+  .fileThumb img {
+    border: none;
+    max-width: 250px;
+    max-height: 250px;
+  }
+  
+  /* Image preview */
+  #imgPreview {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    max-width: 500px;
+    max-height: 500px;
+    border: 1px solid var(--text);
+    display: none;
+  }
+  
+  /* Loading */
+  #loader {
+    text-align: center;
+    padding: 20px;
+    display: none;
+  }
+  
+  /* Utilities */
+  .hidden { display: none !important; }
+  .clear { clear: both; }
+  
+  /* Scroll button */
+  #scrollTop {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: var(--button);
+    border: 1px solid var(--button-border);
+    cursor: pointer;
+    display: none;
+    text-align: center;
+    line-height: 40px;
+    font-size: 18pt;
+  }
+  #scrollTop:hover { background: var(--reply); }
+  
+  /* Mobile */
+  @media (max-width: 768px) {
+    #sidebar {
+      position: static;
+      width: 100%;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
+    #main { margin-left: 0; }
+    .reply { margin-left: 10px; }
+    .catalog-item { width: 120px; }
+  }
 </style>
 </head>
 <body>
 
 <div id="sidebar">
-  <strong>Boards</strong><br>
+  <h4>Boards</h4>
+  <input type="text" id="board-search" placeholder="Search...">
   <div id="board-list"></div>
 </div>
 
 <div id="main">
   <div id="header">
-    <span id="nav-buttons"></span>
-    <span id="options-btn" class="btn hidden" onclick="toggleTree()">Tree View: OFF</span>
+    <span id="nav"></span>
+    <span id="theme-selector">
+      Theme: 
+      <select id="theme-select" onchange="changeTheme(this.value)">
+        <option value="yotsuba">Yotsuba</option>
+        <option value="tomorrow">Tomorrow</option>
+        <option value="yotsuba-b">Yotsuba B</option>
+      </select>
+    </span>
+    <div style="clear:both"></div>
   </div>
-
+  
   <div id="catalog" class="hidden"></div>
-  <div id="thread-view"></div>
+  <div id="thread"></div>
   <div id="loader">Loading...</div>
 </div>
 
-<img id="hover-preview">
+<div id="scrollTop" onclick="scrollTop()">↑</div>
+<img id="imgPreview" alt="">
 
 <script>
 const PROXY = "https://api.codetabs.com/v1/proxy?quest=";
 const API = "https://a.4cdn.org";
-let currentBoard = "";
-let currentThread = 0;
-let treeMode = false;
+const IMG_CDN = "https://i.4cdn.org";
 
-async function fetchJSON(url) {
-  const r = await fetch(PROXY + encodeURIComponent(url));
-  if (!r.ok) throw new Error("Fetch failed");
-  return await r.json();
+let board = "";
+let threadId = 0;
+let boards = [];
+let prefetchCache = {};
+let imgObserver = null;
+
+// Fetch JSON
+async function get(url) {
+  try {
+    const r = await fetch(PROXY + encodeURIComponent(url));
+    if (!r.ok) throw new Error("Failed");
+    return await r.json();
+  } catch(e) {
+    show("loader");
+    document.getElementById("loader").textContent = "Error loading data";
+    return null;
+  }
 }
 
+// Hover prefetch - preload catalog/thread data on mouseover
+function prefetch(url) {
+  if (prefetchCache[url]) return;
+  prefetchCache[url] = true;
+  
+  setTimeout(() => {
+    fetch(PROXY + encodeURIComponent(url))
+      .then(r => r.json())
+      .then(() => {})
+      .catch(() => {});
+  }, 100);
+}
+
+// Load boards
 async function loadBoards() {
-  const data = await fetchJSON(API + "/boards.json");
-  const container = document.getElementById("board-list");
-  data.boards.forEach(b => {
-    const a = document.createElement("a");
-    a.href = "#";
-    a.textContent = "/" + b.board + "/";
-    a.title = b.title;
-    a.onclick = e => { e.preventDefault(); loadCatalog(b.board); };
-    container.appendChild(a);
+  const data = await get(API + "/boards.json");
+  if (!data) return;
+  
+  boards = data.boards;
+  renderBoards(boards);
+  
+  // Prefetch popular boards
+  ["g", "v", "pol", "b"].forEach(b => {
+    prefetch(API + `/${b}/catalog.json`);
   });
 }
 
-async function loadCatalog(board) {
-  currentBoard = board;
-  document.title = `/${board}/ - Catalog`;
-  document.getElementById("catalog").classList.remove("hidden");
-  document.getElementById("thread-view").classList.add("hidden");
-  document.getElementById("loader").textContent = `Loading /${board}/...`;
-  document.getElementById("loader").classList.remove("hidden");
-
-  document.getElementById("nav-buttons").innerHTML = `
-    <span class="btn" onclick="loadCatalog('${board}')">Catalog</span>
-  `;
-
-  const catalog = await fetchJSON(API + `/${board}/catalog.json`);
-  const container = document.getElementById("catalog");
-  container.innerHTML = "";
-
-  const grid = document.createElement("div");
-  grid.style.display = "grid";
-  grid.style.gridTemplateColumns = "repeat(auto-fill, minmax(250px, 1fr))";
-  grid.style.gap = "15px";
-
-  catalog.forEach(page => page.threads.forEach(t => {
-    if (!t.sub && !t.com) return;
-    const d = document.createElement("div");
-    d.className = "thread";
-    d.onclick = () => loadThread(board, t.no);
-    d.style.cursor = "pointer";
-
-    let html = `<small>${t.no}</small><br>`;
-    if (t.tim) html += `<img src="https://i.4cdn.org/${board}/${t.tim}s.jpg" class="post-img" loading="lazy" onmouseover="showPreview(event,this)" onmouseout="hidePreview()"><br>`;
-    html += `<strong>${(t.sub||'').replace(/<[^>]*>/g,'') || 'No title'}</strong><br>`;
-    html += `<small>${strip(t.com||'').slice(0,140)}...</small><br>`;
-    html += `<small>R:${t.replies} I:${t.images}</small>`;
-    d.innerHTML = html;
-    grid.appendChild(d);
-  }));
-
-  container.appendChild(grid);
-  document.getElementById("loader").classList.add("hidden");
+function renderBoards(list) {
+  const el = document.getElementById("board-list");
+  el.innerHTML = "";
+  
+  list.forEach(b => {
+    const a = document.createElement("a");
+    a.href = "#";
+    a.textContent = "/" + b.board + "/ - " + b.title;
+    a.onmouseover = () => prefetch(API + `/${b.board}/catalog.json`);
+    a.onclick = e => {
+      e.preventDefault();
+      loadCatalog(b.board);
+    };
+    el.appendChild(a);
+  });
 }
 
-async function loadThread(board, threadId) {
-  currentBoard = board;
-  currentThread = threadId;
-  document.title = `/${board}/ - ${threadId}`;
-  document.getElementById("catalog").classList.add("hidden");
-  document.getElementById("thread-view").classList.remove("hidden");
-  document.getElementById("options-btn").classList.remove("hidden");
-  document.getElementById("loader").textContent = "Loading thread...";
-  document.getElementById("loader").classList.remove("hidden");
+// Board search
+document.getElementById("board-search").oninput = function(e) {
+  const q = e.target.value.toLowerCase();
+  const filtered = boards.filter(b => 
+    b.board.toLowerCase().indexOf(q) > -1 || 
+    b.title.toLowerCase().indexOf(q) > -1
+  );
+  renderBoards(filtered);
+};
 
-  document.getElementById("nav-buttons").innerHTML = `
-    <span class="btn" onclick="loadCatalog('${board}')">‹ Catalog</span>
-  `;
+// Load catalog
+async function loadCatalog(b) {
+  board = b;
+  threadId = 0;
+  document.title = "/" + b + "/ - Catalog";
+  
+  show("catalog");
+  hide("thread");
+  show("loader");
+  
+  document.getElementById("nav").innerHTML = 
+    '<button class="btn" onclick="loadCatalog(\'' + b + '\')">Catalog</button>';
+  
+  const data = await get(API + `/${b}/catalog.json`);
+  if (!data) return;
+  
+  const el = document.getElementById("catalog");
+  el.innerHTML = '<div class="catalog-grid"></div>';
+  const grid = el.querySelector(".catalog-grid");
+  
+  data.forEach(page => {
+    page.threads.forEach(t => {
+      if (!t.sub && !t.com) return;
+      
+      const d = document.createElement("div");
+      d.className = "catalog-item";
+      d.onmouseover = () => prefetch(API + `/${b}/thread/${t.no}.json`);
+      d.onclick = () => loadThread(b, t.no);
+      
+      let html = '<small>' + t.no + '</small><br>';
+      if (t.tim) {
+        html += '<img data-src="' + IMG_CDN + '/' + b + '/' + t.tim + 's.jpg" alt=""><br>';
+      }
+      
+      const sub = strip(t.sub || t.com || "");
+      html += '<b>' + (sub.slice(0, 40) || "Thread #" + t.no) + '</b><br>';
+      html += '<div class="catalog-stats">R:' + t.replies + ' I:' + t.images + '</div>';
+      
+      d.innerHTML = html;
+      grid.appendChild(d);
+    });
+  });
+  
+  initObserver();
+  hide("loader");
+}
 
-  const data = await fetchJSON(API + `/${board}/thread/${threadId}.json`);
-  const container = document.getElementById("thread-view");
-  container.innerHTML = "";
-
+// Load thread
+async function loadThread(b, tid) {
+  board = b;
+  threadId = tid;
+  document.title = "/" + b + "/ - " + tid;
+  
+  hide("catalog");
+  show("thread");
+  show("loader");
+  
+  document.getElementById("nav").innerHTML = 
+    '<button class="btn" onclick="loadCatalog(\'' + b + '\')">← Back</button>' +
+    '<button class="btn" onclick="loadThread(\'' + b + '\',' + tid + ')">Refresh</button>';
+  
+  const data = await get(API + `/${b}/thread/${tid}.json`);
+  if (!data) return;
+  
+  const el = document.getElementById("thread");
+  el.innerHTML = "";
+  
   data.posts.forEach(post => {
-    const div = document.createElement("div");
-    div.className = post.resto === 0 ? "op" : "reply";
-    div.dataset.parent = post.resto || post.no;
-    div.id = "p" + post.no;
-
-    let html = `<div class="post-info">
-      <strong>${esc(post.name||"Anonymous")}</strong>
-      ${post.now} No.<a href="#p${post.no}" class="quotelink">${post.no}</a>
-    </div>`;
-
+    const d = document.createElement("div");
+    d.className = "post " + (post.resto === 0 ? "op" : "reply");
+    d.id = "p" + post.no;
+    
+    let html = '<div class="postInfo">';
+    html += '<span class="postername">' + esc(post.name || "Anonymous") + '</span> ';
+    html += post.now + ' ';
+    html += 'No.<a href="#p' + post.no + '" class="quotelink">' + post.no + '</a>';
+    html += '</div>';
+    
     if (post.tim) {
-      const thumb = `https://i.4cdn.org/${board}/${post.tim}s.jpg`;
-      const full = `https://i.4cdn.org/${board}/${post.tim}${post.ext}`;
-      html += `<a href="${full}" target="_blank">
-        <img src="${thumb}" class="post-img" loading="lazy" 
-             onmouseover="showPreview(event,this,'${full}')" onmouseout="hidePreview()">
-      </a>`;
+      const thumb = IMG_CDN + '/' + b + '/' + post.tim + 's.jpg';
+      const full = IMG_CDN + '/' + b + '/' + post.tim + post.ext;
+      html += '<div class="fileThumb">';
+      html += '<a href="' + full + '" target="_blank">';
+      html += '<img data-src="' + thumb + '" data-full="' + full + '" alt="">';
+      html += '</a></div>';
     }
-
+    
     if (post.com) {
-      html += `<blockquote>${format(post.com)}</blockquote>`;
+      html += '<blockquote>' + fmt(post.com) + '</blockquote>';
     }
-
-    div.innerHTML = html;
-    container.appendChild(div);
-
-    // Make >>links clickable
-    div.querySelectorAll("a.quotelink").forEach(link => {
-      if (link.textContent.startsWith(">>")) {
-        const num = link.textContent.slice(2);
+    
+    html += '<div class="clear"></div>';
+    d.innerHTML = html;
+    el.appendChild(d);
+    
+    // Quote links
+    d.querySelectorAll(".quotelink").forEach(link => {
+      const m = link.textContent.match(/>>(\d+)/);
+      if (m) {
         link.onclick = e => {
           e.preventDefault();
-          const el = document.getElementById("p" + num);
-          if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+          const target = document.getElementById("p" + m[1]);
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
         };
       }
     });
   });
-
-  document.getElementById("loader").classList.add("hidden");
+  
+  initObserver();
+  hide("loader");
 }
 
-function toggleTree() {
-  treeMode = !treeMode;
-  document.getElementById("options-btn").textContent = "Tree View: " + (treeMode ? "ON" : "OFF");
-  document.getElementById("thread-view").classList.toggle("tree-hidden", !treeMode);
-}
-
-function format(text) {
+// Format text
+function fmt(text) {
   return text
     .replace(/<br>/g, "\n")
     .replace(/&gt;/g, ">")
+    .replace(/&lt;/g, "<")
     .replace(/&quot;/g, '"')
     .replace(/&#039;/g, "'")
-    .replace(/&lt;/g, "<")
+    .replace(/&amp;/g, "&")
     .replace(/\n/g, "<br>")
-    .replace(/^&gt;(.+)/gm, '<span class="green">&gt;$1</span>')
-    .replace(/&gt;&gt;(\d+)/g, '<a href="#p$1" class="quotelink">&gt;&gt;$1</a>')
-    .replace(/\*\*(.+?)\*\*/g, '<span class="red">$1</span>')
-    .replace(/\[spoiler\](.+?)\[\/spoiler\]/g, '<span class="spoiler">$1</span>');
+    .replace(/^>(.+)/gm, '<span class="quote">&gt;$1</span>')
+    .replace(/>>(\d+)/g, '<a href="#p$1" class="quotelink">&gt;&gt;$1</a>');
 }
 
 function strip(html) {
   const d = document.createElement("div");
   d.innerHTML = html;
-  return d.textContent || "";
+  return (d.textContent || "").trim();
 }
 
 function esc(t) {
@@ -226,20 +532,84 @@ function esc(t) {
   return d.innerHTML;
 }
 
-// Image hover preview (follows cursor)
-function showPreview(e, thumb, full = null) {
-  const img = document.getElementById("hover-preview");
-  img.src = full || thumb.src.replace("s.jpg", ".jpg").replace("thumb", "");
-  img.style.display = "block";
-  document.onmousemove = ev => {
-    img.style.left = (ev.pageX + 15) + "px";
-    img.style.top = (ev.pageY + 15) + "px";
-  };
+// Lazy load images with IntersectionObserver
+function initObserver() {
+  if (imgObserver) imgObserver.disconnect();
+  
+  imgObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        const src = img.getAttribute("data-src");
+        if (src) {
+          img.src = src;
+          img.removeAttribute("data-src");
+        }
+        imgObserver.unobserve(img);
+      }
+    });
+  }, { rootMargin: "100px" });
+  
+  document.querySelectorAll("img[data-src]").forEach(img => {
+    imgObserver.observe(img);
+  });
 }
 
-function hidePreview() {
-  document.getElementById("hover-preview").style.display = "none";
-  document.onmousemove = null;
+// Image preview
+document.addEventListener("mouseover", e => {
+  if (e.target.tagName === "IMG" && e.target.getAttribute("data-full")) {
+    const prev = document.getElementById("imgPreview");
+    prev.src = e.target.getAttribute("data-full");
+    prev.style.display = "block";
+    
+    document.onmousemove = ev => {
+      prev.style.left = (ev.pageX + 20) + "px";
+      prev.style.top = (ev.pageY + 20) + "px";
+    };
+  }
+});
+
+document.addEventListener("mouseout", e => {
+  if (e.target.tagName === "IMG" && e.target.getAttribute("data-full")) {
+    document.getElementById("imgPreview").style.display = "none";
+    document.onmousemove = null;
+  }
+});
+
+// Scroll to top
+window.onscroll = function() {
+  const btn = document.getElementById("scrollTop");
+  if (window.pageYOffset > 300) {
+    btn.style.display = "block";
+  } else {
+    btn.style.display = "none";
+  }
+};
+
+function scrollTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// Theme
+function changeTheme(theme) {
+  document.body.className = theme === "yotsuba" ? "" : "theme-" + theme;
+  localStorage.setItem("theme", theme);
+}
+
+// Restore theme
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme) {
+  document.getElementById("theme-select").value = savedTheme;
+  changeTheme(savedTheme);
+}
+
+// Utils
+function show(id) {
+  document.getElementById(id).classList.remove("hidden");
+}
+
+function hide(id) {
+  document.getElementById(id).classList.add("hidden");
 }
 
 // Start
