@@ -60,12 +60,6 @@ Works best on desktop; mobile support is basic but usable.
 - Very simple image hover preview
 - Experimental (buggy) tree view toggle
 
-## How to use
-
-1. Save the file as `4chan-viewer.html`
-2. Open it in a modern browser (Chrome, Firefox, Edge…)
-3. Click any board in the sidebar
-
 **Note:** This viewer uses a public CORS proxy (`api.codetabs.com`).  
 If it stops working or is slow, you may replace the `PROXY` constant with another proxy or (better) host your own tiny proxy.
 
