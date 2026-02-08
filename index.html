@@ -21,7 +21,8 @@
             --quote: #789922;
             --button: #f0e0d6;
             --button-border: #ccc;
-            --highlight: #d6bad0
+            --highlight: #d6bad0;
+            --sidebar: #f0e0d6;
         }
 
         .theme-tomorrow {
@@ -36,7 +37,8 @@
             --quote: #b5bd68;
             --button: #373b41;
             --button-border: #1d1f21;
-            --highlight: #3a3a4e
+            --highlight: #3a3a4e;
+            --sidebar: #282a2e;
         }
 
         .theme-yotsuba-b {
@@ -51,51 +53,116 @@
             --quote: #789922;
             --button: #d6daf0;
             --button-border: #b7c5d9;
-            --highlight: #b7c5e9
+            --highlight: #b7c5e9;
+            --sidebar: #d6daf0;
+        }
+
+        .theme-classic {
+            --bg: #ffffff;
+            --post: #f5f5f5;
+            --reply: #f0f0f0;
+            --border: #cccccc;
+            --text: #000000;
+            --name: #0000ff;
+            --link: #0000ee;
+            --link-hover: #ff0000;
+            --quote: #008000;
+            --button: #e0e0e0;
+            --button-border: #999999;
+            --highlight: #ffff99;
+            --sidebar: #eeeeee;
+        }
+
+        .theme-green {
+            --bg: #d6f5d6;
+            --post: #c8e6c8;
+            --reply: #c8e6c8;
+            --border: #9bc49b;
+            --text: #0d4d0d;
+            --name: #006600;
+            --link: #004400;
+            --link-hover: #cc0000;
+            --quote: #557755;
+            --button: #b8d8b8;
+            --button-border: #88aa88;
+            --highlight: #ffffaa;
+            --sidebar: #c8e6c8;
+        }
+
+        .theme-midnight {
+            --bg: #0a0a0a;
+            --post: #1a1a1a;
+            --reply: #1a1a1a;
+            --border: #333333;
+            --text: #00ff00;
+            --name: #00cc00;
+            --link: #00aaff;
+            --link-hover: #ff00ff;
+            --quote: #00ff00;
+            --button: #222222;
+            --button-border: #444444;
+            --highlight: #003300;
+            --sidebar: #1a1a1a;
+        }
+
+        .theme-retro {
+            --bg: #c0c0c0;
+            --post: #ffffff;
+            --reply: #f0f0f0;
+            --border: #000000;
+            --text: #000000;
+            --name: #000080;
+            --link: #0000ff;
+            --link-hover: #ff0000;
+            --quote: #008000;
+            --button: #c0c0c0;
+            --button-border: #000000;
+            --highlight: #ffff00;
+            --sidebar: #c0c0c0;
         }
 
         * {
             margin: 0;
             padding: 0;
-            box-sizing: border-box
+            box-sizing: border-box;
         }
 
         body {
             font-family: arial, helvetica, sans-serif;
             font-size: 10pt;
             background: var(--bg);
-            color: var(--text)
+            color: var(--text);
         }
 
         a {
             color: var(--link);
-            text-decoration: underline
+            text-decoration: underline;
         }
 
         a:hover {
-            color: var(--link-hover)
+            color: var(--link-hover);
         }
 
         .postername {
             color: var(--name);
-            font-weight: bold
+            font-weight: bold;
         }
 
         .postertrip {
-            color: #228854
+            color: #228854;
         }
 
         .quote {
-            color: var(--quote)
+            color: var(--quote);
         }
 
         .quotelink {
             color: var(--link);
-            text-decoration: none
+            text-decoration: none;
         }
 
         .quotelink:hover {
-            color: var(--link-hover)
+            color: var(--link-hover);
         }
 
         #sidebar {
@@ -105,23 +172,23 @@
             left: 0;
             bottom: 0;
             overflow-y: auto;
-            background: var(--post);
+            background: var(--sidebar);
             border-right: 1px solid var(--border);
             padding: 10px;
-            font-size: 9pt
+            font-size: 9pt;
         }
 
         #main {
             margin-left: 220px;
             padding: 10px 20px 40px;
             max-width: 1600px;
-            margin-right: auto
+            margin-right: auto;
         }
 
         #header {
             border-bottom: 1px solid var(--border);
             margin-bottom: 10px;
-            padding-bottom: 8px
+            padding-bottom: 8px;
         }
 
         .btn {
@@ -132,39 +199,30 @@
             margin: 2px;
             cursor: pointer;
             font-size: 9pt;
-            font-family: arial, helvetica, sans-serif
+            font-family: arial, helvetica, sans-serif;
         }
 
         .btn:hover {
-            background: var(--reply)
+            background: var(--reply);
         }
 
-        #theme-selector {
-            float: right;
-            font-size: 9pt
-        }
-
-        #theme-selector select {
-            background: var(--button);
-            border: 1px solid var(--button-border);
-            color: var(--text);
-            padding: 2px;
-            font-size: 9pt
+        .btn:active {
+            border-style: inset;
         }
 
         #view-mode {
-            margin-left: 10px
+            margin-left: 10px;
         }
 
         #sidebar h4 {
             margin: 10px 0 5px;
-            font-size: 10pt
+            font-size: 10pt;
         }
 
         #sidebar a {
             display: block;
             padding: 3px 5px;
-            margin: 1px 0
+            margin: 1px 0;
         }
 
         #board-search {
@@ -174,12 +232,12 @@
             background: var(--bg);
             border: 1px solid var(--border);
             color: var(--text);
-            font-size: 9pt
+            font-size: 9pt;
         }
 
         .catalog-grid {
             display: table;
-            width: 100%
+            width: 100%;
         }
 
         .catalog-item {
@@ -191,11 +249,11 @@
             background: var(--post);
             border: 1px solid var(--border);
             cursor: pointer;
-            font-size: 9pt
+            font-size: 9pt;
         }
 
         .catalog-item:hover {
-            background: var(--reply)
+            background: var(--reply);
         }
 
         .catalog-item img {
@@ -203,12 +261,12 @@
             height: 150px;
             object-fit: cover;
             display: block;
-            margin-bottom: 5px
+            margin-bottom: 5px;
         }
 
         .catalog-stats {
             font-size: 8pt;
-            margin-top: 4px
+            margin-top: 4px;
         }
 
         .index-thread {
@@ -216,22 +274,22 @@
             border: 1px solid var(--border);
             padding: 10px;
             margin: 10px 0;
-            cursor: pointer
+            cursor: pointer;
         }
 
         .index-thread:hover {
-            background: var(--reply)
+            background: var(--reply);
         }
 
         .index-thread .op-subject {
             font-weight: bold;
             font-size: 11pt;
-            margin-bottom: 5px
+            margin-bottom: 5px;
         }
 
         .index-thread .op-info {
             font-size: 9pt;
-            margin-bottom: 8px
+            margin-bottom: 8px;
         }
 
         .index-thread .preview-reply {
@@ -239,59 +297,87 @@
             border-left: 3px solid var(--quote);
             padding: 5px;
             margin: 5px 0 5px 20px;
-            font-size: 9pt
+            font-size: 9pt;
         }
 
         .index-thread .omitted {
             font-size: 8pt;
             font-style: italic;
-            margin: 8px 0
+            margin: 8px 0;
         }
 
         .post {
             background: var(--post);
             border: 1px solid var(--border);
             padding: 5px;
-            margin: 5px 0
+            margin: 5px 0;
         }
 
         .post.highlighted {
             background: var(--highlight);
-            border: 2px solid var(--link)
+            border: 2px solid var(--link);
+        }
+
+        .post.filtered {
+            opacity: 0.3;
         }
 
         .reply {
             background: var(--reply);
-            margin-left: 20px
+            margin-left: 20px;
         }
 
         .postInfo {
             font-size: 9pt;
-            margin-bottom: 5px
+            margin-bottom: 5px;
         }
 
         .fileText {
             font-size: 9pt;
-            margin: 3px 0
+            margin: 3px 0;
         }
 
         .fileText a {
-            text-decoration: none
+            text-decoration: none;
         }
 
         blockquote {
-            margin: 5px 0
+            margin: 5px 0;
         }
 
         .fileThumb {
             float: left;
-            margin: 5px 20px 5px 0
+            margin: 5px 20px 5px 0;
+            position: relative;
         }
 
         .fileThumb img {
             border: none;
             max-width: 250px;
-            max-height: 250px
+            max-height: 250px;
+        }
+
+        .download-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 3px 6px;
+            font-size: 8pt;
+            text-decoration: none;
+            border-radius: 2px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .fileThumb:hover .download-btn {
+            opacity: 1;
+        }
+
+        .download-btn:hover {
+            background: rgba(0, 0, 0, 0.9);
+            color: #fff;
         }
 
         #imgPreview {
@@ -301,21 +387,21 @@
             max-width: 500px;
             max-height: 500px;
             border: 1px solid var(--text);
-            display: none
+            display: none;
         }
 
         #loader {
             text-align: center;
             padding: 20px;
-            display: none
+            display: none;
         }
 
         .hidden {
-            display: none !important
+            display: none !important;
         }
 
         .clear {
-            clear: both
+            clear: both;
         }
 
         #scrollTop {
@@ -330,14 +416,14 @@
             display: none;
             text-align: center;
             line-height: 40px;
-            font-size: 18pt
+            font-size: 18pt;
         }
 
         #scrollTop:hover {
-            background: var(--reply)
+            background: var(--reply);
         }
 
-        #optionsModal {
+        #optionsModal, #filterModal {
             display: none;
             position: fixed;
             z-index: 10000;
@@ -345,11 +431,11 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.4)
+            background: rgba(0, 0, 0, 0.4);
         }
 
-        #optionsModal.visible {
-            display: block
+        #optionsModal.visible, #filterModal.visible {
+            display: block;
         }
 
         .modal-content {
@@ -360,35 +446,39 @@
             width: 600px;
             max-width: 90%;
             max-height: 80vh;
-            overflow-y: auto
+            overflow-y: auto;
+        }
+
+        .modal-content h2 {
+            margin-bottom: 15px;
         }
 
         .modal-content h3 {
             margin: 15px 0 10px;
             font-size: 11pt;
             border-bottom: 1px solid var(--border);
-            padding-bottom: 5px
+            padding-bottom: 5px;
         }
 
         .modal-content label {
             display: block;
             margin: 8px 0;
-            font-size: 9pt
+            font-size: 9pt;
         }
 
-        .modal-content input[type="text"], .modal-content textarea {
+        .modal-content input[type="text"], .modal-content textarea, .modal-content select {
             width: 100%;
             padding: 4px;
             background: var(--post);
             border: 1px solid var(--border);
             color: var(--text);
             font-size: 9pt;
-            font-family: monospace
+            font-family: monospace;
         }
 
         .modal-content textarea {
             height: 60px;
-            resize: vertical
+            resize: vertical;
         }
 
         .format-help {
@@ -397,13 +487,13 @@
             background: var(--post);
             padding: 5px;
             margin: 5px 0;
-            border-left: 3px solid var(--border)
+            border-left: 3px solid var(--border);
         }
 
         .format-preview {
             font-size: 8pt;
             font-style: italic;
-            margin-top: 3px
+            margin-top: 3px;
         }
 
         #statusBar {
@@ -417,15 +507,40 @@
             font-size: 8pt;
             opacity: 0.8;
             display: none;
-            z-index: 1000
+            z-index: 1000;
         }
 
         #statusBar.visible {
-            display: block
+            display: block;
         }
 
         #statusBar span {
-            margin-right: 15px
+            margin-right: 15px;
+        }
+
+        .filter-item {
+            background: var(--post);
+            border: 1px solid var(--border);
+            padding: 8px;
+            margin: 5px 0;
+        }
+
+        .filter-item input[type="text"] {
+            width: calc(100% - 100px);
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .filter-item select {
+            width: auto;
+            display: inline-block;
+        }
+
+        #filterControls {
+            background: var(--post);
+            border: 1px solid var(--border);
+            padding: 5px;
+            margin-bottom: 10px;
         }
 
         @media (max-width: 768px) {
@@ -433,24 +548,24 @@
                 position: static;
                 width: 100%;
                 border-right: none;
-                border-bottom: 1px solid var(--border)
+                border-bottom: 1px solid var(--border);
             }
 
             #main {
-                margin-left: 0
+                margin-left: 0;
             }
 
             .reply {
-                margin-left: 10px
+                margin-left: 10px;
             }
 
             .catalog-item {
-                width: 120px
+                width: 120px;
             }
 
             .modal-content {
                 width: 95%;
-                margin: 20px auto
+                margin: 20px auto;
             }
         }
     </style>
@@ -458,22 +573,19 @@
 <body>
 <div id="sidebar">
     <h4>Boards</h4>
-    <input type="text" id="board-search" placeholder="Search...">
+    <input type="text" id="board-search" placeholder="Search boards...">
     <div id="board-list"></div>
 </div>
 <div id="main">
     <div id="header">
         <span id="nav"></span>
         <span id="view-mode"></span>
-        <span id="theme-selector">
-<button class="btn" onclick="showOptions()">Options</button>
-Theme: <select id="theme-select" onchange="changeTheme(this.value)">
-<option value="yotsuba">Yotsuba</option>
-<option value="tomorrow">Tomorrow</option>
-<option value="yotsuba-b">Yotsuba B</option>
-</select>
-</span>
         <div style="clear:both"></div>
+    </div>
+    <div id="filterControls" class="hidden">
+        <button class="btn" onclick="showFilterModal()">Manage Filters</button>
+        <button class="btn" onclick="clearFilters()">Clear All</button>
+        <span id="activeFiltersCount"></span>
     </div>
     <div id="catalog" class="hidden"></div>
     <div id="index" class="hidden"></div>
@@ -487,32 +599,49 @@ Theme: <select id="theme-select" onchange="changeTheme(this.value)">
     <span id="statData">Data: 0 KB</span>
     <span id="statRequests">Requests: 0</span>
     <span id="statTime">Time: 0ms</span>
+    <span id="statFiltered">Filtered: 0</span>
 </div>
 <div id="optionsModal">
     <div class="modal-content">
         <h2>Options</h2>
+        
+        <h3>Theme</h3>
+        <label>
+            Select Theme:
+            <select id="theme-select" onchange="changeTheme(this.value)">
+                <option value="yotsuba">Yotsuba</option>
+                <option value="yotsuba-b">Yotsuba B</option>
+                <option value="tomorrow">Tomorrow</option>
+                <option value="classic">Classic White</option>
+                <option value="green">Green Yotsuba</option>
+                <option value="midnight">Midnight Terminal</option>
+                <option value="retro">Retro Windows</option>
+            </select>
+        </label>
+
         <h3>Advanced Features</h3>
-        <label><input type="checkbox" id="optStatusBar" onchange="toggleStatusBar()"> Show Status Bar (performance
-            metrics)</label>
+        <label><input type="checkbox" id="optStatusBar" onchange="toggleStatusBar()"> Show Status Bar (performance metrics)</label>
+        <label><input type="checkbox" id="optImageHover"> Enable image hover preview</label>
+        <label><input type="checkbox" id="optAutoRefresh"> Auto-refresh threads (60s)</label>
+
         <h3>File Info Format</h3>
         <label>Format Template:
             <input type="text" id="optFileFormat" value="%n%e (%s, %r)" oninput="updateFilePreview()">
         </label>
-        <div class="format-help"><strong>Variables:</strong><br>%n = filename | %e = extension | %s = file size | %r =
-            resolution (WxH) | %w = width | %h = height
-        </div>
+        <div class="format-help"><strong>Variables:</strong><br>%n = filename | %e = extension | %s = file size | %r = resolution (WxH) | %w = width | %h = height</div>
         <div class="format-preview" id="fileFormatPreview"></div>
+
         <h3>Date Format</h3>
         <label>Format Template:
             <input type="text" id="optDateFormat" value="%m/%d/%y(%a)%H:%M:%S" oninput="updateDatePreview()">
         </label>
-        <div class="format-help"><strong>Variables:</strong><br>%Y = year (2025) | %y = year (25) | %m = month | %d =
-            day | %H = hour (24h) | %I = hour (12h) | %M = minute | %S = second | %a = weekday (Mon) | %A = weekday
-            (Monday) | %p = AM/PM
-        </div>
+        <div class="format-help"><strong>Variables:</strong><br>%Y = year (2025) | %y = year (25) | %m = month | %d = day | %H = hour (24h) | %I = hour (12h) | %M = minute | %S = second | %a = weekday (Mon) | %A = weekday (Monday) | %p = AM/PM</div>
         <div class="format-preview" id="dateFormatPreview"></div>
+
         <h3>Display Options</h3>
         <label><input type="checkbox" id="optShowSpoiler" checked> Show spoiler indicator in file names</label>
+        <label><input type="checkbox" id="optCompactMode"> Compact mode (smaller posts)</label>
+
         <p style="margin-top:20px">
             <button class="btn" onclick="saveOptions()">Save & Close</button>
             <button class="btn" onclick="closeOptions()">Cancel</button>
@@ -520,27 +649,71 @@ Theme: <select id="theme-select" onchange="changeTheme(this.value)">
         </p>
     </div>
 </div>
+
+<div id="filterModal">
+    <div class="modal-content">
+        <h2>Filter Management</h2>
+        
+        <h3>Active Filters</h3>
+        <div id="filterList"></div>
+        
+        <h3>Add New Filter</h3>
+        <label>
+            Filter Type:
+            <select id="newFilterType">
+                <option value="name">Name</option>
+                <option value="tripcode">Tripcode</option>
+                <option value="subject">Subject</option>
+                <option value="comment">Comment</option>
+                <option value="filename">Filename</option>
+            </select>
+        </label>
+        <label>
+            Pattern (case-insensitive):
+            <input type="text" id="newFilterPattern" placeholder="Enter text to filter">
+        </label>
+        <label>
+            <input type="checkbox" id="newFilterRegex"> Use Regular Expression
+        </label>
+        
+        <p style="margin-top:10px">
+            <button class="btn" onclick="addFilter()">Add Filter</button>
+        </p>
+        
+        <p style="margin-top:20px">
+            <button class="btn" onclick="closeFilterModal()">Close</button>
+            <button class="btn" onclick="exportFilters()">Export</button>
+            <button class="btn" onclick="importFilters()">Import</button>
+        </p>
+    </div>
+</div>
+
 <script>
-    const PROXY = "https://api.codetabs.com/v1/proxy?quest=", API = "https://a.4cdn.org",
-        IMG_CDN = "https://i.4cdn.org";
-    let board = "", threadId = 0, boards = [], prefetchCache = {}, imgObserver = null, treeMode = false,
-        perfObserver = null, perfStats = {images: 0, dataBytes: 0, requests: 0, startTime: 0};
+    const PROXY = "https://api.codetabs.com/v1/proxy?quest=";
+    const API = "https://a.4cdn.org";
+    const IMG_CDN = "https://i.4cdn.org";
+    
+    let board = "";
+    let threadId = 0;
+    let boards = [];
+    let prefetchCache = {};
+    let imgObserver = null;
+    let treeMode = false;
+    let perfObserver = null;
+    let perfStats = {images: 0, dataBytes: 0, requests: 0, startTime: 0, filtered: 0};
+    let filters = [];
+    let autoRefreshInterval = null;
 
-    function saveSetting(k, v) {
-        try {
-            localStorage.setItem(k, v)
-        } catch (e) {
-        }
-    }
+    // Settings Management
+    const saveSetting = (k, v) => {
+        try { localStorage.setItem(k, v); } catch (e) {}
+    };
 
-    function getSetting(k, d) {
-        try {
-            return localStorage.getItem(k) || d
-        } catch (e) {
-            return d
-        }
-    }
+    const getSetting = (k, d) => {
+        try { return localStorage.getItem(k) || d; } catch (e) { return d; }
+    };
 
+    // Performance Monitoring
     function initPerformanceMonitor() {
         if (getSetting("statusBar", "0") !== "1") return;
         try {
@@ -550,18 +723,17 @@ Theme: <select id="theme-select" onchange="changeTheme(this.value)">
                         perfStats.requests++;
                         perfStats.dataBytes += e.transferSize || e.encodedBodySize || 0;
                         if (e.name.match(/\.(jpg|jpeg|png|gif|webp)/i)) perfStats.images++;
-                        updateStatusBar()
+                        updateStatusBar();
                     }
-                })
+                });
             });
-            perfObserver.observe({type: "resource", buffered: true})
-        } catch (e) {
-        }
+            perfObserver.observe({type: "resource", buffered: true});
+        } catch (e) {}
     }
 
     function resetPerfStats() {
-        perfStats = {images: 0, dataBytes: 0, requests: 0, startTime: Date.now()};
-        updateStatusBar()
+        perfStats = {images: 0, dataBytes: 0, requests: 0, startTime: Date.now(), filtered: 0};
+        updateStatusBar();
     }
 
     function updateStatusBar() {
@@ -569,7 +741,8 @@ Theme: <select id="theme-select" onchange="changeTheme(this.value)">
         document.getElementById("statImages").textContent = "Images: " + perfStats.images;
         document.getElementById("statData").textContent = "Data: " + formatSize(perfStats.dataBytes);
         document.getElementById("statRequests").textContent = "Requests: " + perfStats.requests;
-        document.getElementById("statTime").textContent = "Time: " + (Date.now() - perfStats.startTime) + "ms"
+        document.getElementById("statTime").textContent = "Time: " + (Date.now() - perfStats.startTime) + "ms";
+        document.getElementById("statFiltered").textContent = "Filtered: " + perfStats.filtered;
     }
 
     function toggleStatusBar() {
@@ -577,84 +750,302 @@ Theme: <select id="theme-select" onchange="changeTheme(this.value)">
         saveSetting("statusBar", e ? "1" : "0");
         if (e) {
             document.getElementById("statusBar").classList.add("visible");
-            initPerformanceMonitor()
+            initPerformanceMonitor();
         } else {
             document.getElementById("statusBar").classList.remove("visible");
-            if (perfObserver) perfObserver.disconnect()
+            if (perfObserver) perfObserver.disconnect();
         }
     }
 
+    // Options Modal
     function showOptions() {
         document.getElementById("optionsModal").classList.add("visible");
         document.getElementById("optStatusBar").checked = getSetting("statusBar", "0") === "1";
         document.getElementById("optFileFormat").value = getSetting("fileFormat", "%n%e (%s, %r)");
         document.getElementById("optDateFormat").value = getSetting("dateFormat", "%m/%d/%y(%a)%H:%M:%S");
         document.getElementById("optShowSpoiler").checked = getSetting("showSpoiler", "1") === "1";
+        document.getElementById("optImageHover").checked = getSetting("imageHover", "1") === "1";
+        document.getElementById("optAutoRefresh").checked = getSetting("autoRefresh", "0") === "1";
+        document.getElementById("optCompactMode").checked = getSetting("compactMode", "0") === "1";
         updateFilePreview();
-        updateDatePreview()
+        updateDatePreview();
     }
 
     function closeOptions() {
-        document.getElementById("optionsModal").classList.remove("visible")
+        document.getElementById("optionsModal").classList.remove("visible");
     }
 
     function saveOptions() {
         saveSetting("fileFormat", document.getElementById("optFileFormat").value);
         saveSetting("dateFormat", document.getElementById("optDateFormat").value);
         saveSetting("showSpoiler", document.getElementById("optShowSpoiler").checked ? "1" : "0");
+        saveSetting("imageHover", document.getElementById("optImageHover").checked ? "1" : "0");
+        saveSetting("autoRefresh", document.getElementById("optAutoRefresh").checked ? "1" : "0");
+        saveSetting("compactMode", document.getElementById("optCompactMode").checked ? "1" : "0");
         closeOptions();
-        if (threadId > 0) loadThread(board, threadId); else if (board) loadIndex(board)
+        setupAutoRefresh();
+        if (threadId > 0) loadThread(board, threadId);
+        else if (board) loadIndex(board);
     }
 
     function resetOptions() {
         document.getElementById("optFileFormat").value = "%n%e (%s, %r)";
         document.getElementById("optDateFormat").value = "%m/%d/%y(%a)%H:%M:%S";
         document.getElementById("optShowSpoiler").checked = true;
+        document.getElementById("optImageHover").checked = true;
+        document.getElementById("optAutoRefresh").checked = false;
+        document.getElementById("optCompactMode").checked = false;
         updateFilePreview();
-        updateDatePreview()
+        updateDatePreview();
     }
 
     function updateFilePreview() {
-        const f = document.getElementById("optFileFormat").value,
-            p = formatFileInfo({filename: "image", ext: ".jpg", fsize: 1258291, w: 1920, h: 1080, spoiler: 0}, f);
-        document.getElementById("fileFormatPreview").textContent = "Preview: " + p
+        const f = document.getElementById("optFileFormat").value;
+        const p = formatFileInfo({filename: "image", ext: ".jpg", fsize: 1258291, w: 1920, h: 1080, spoiler: 0}, f);
+        document.getElementById("fileFormatPreview").textContent = "Preview: " + p;
     }
 
     function updateDatePreview() {
-        const f = document.getElementById("optDateFormat").value, p = formatDate(new Date("2025-01-16T14:30:45"), f);
-        document.getElementById("dateFormatPreview").textContent = "Preview: " + p
+        const f = document.getElementById("optDateFormat").value;
+        const p = formatDate(new Date("2025-01-16T14:30:45"), f);
+        document.getElementById("dateFormatPreview").textContent = "Preview: " + p;
     }
 
+    // Filter System
+    function loadFilters() {
+        try {
+            const saved = localStorage.getItem("filters");
+            filters = saved ? JSON.parse(saved) : [];
+        } catch (e) {
+            filters = [];
+        }
+        updateFilterUI();
+    }
+
+    function saveFilters() {
+        try {
+            localStorage.setItem("filters", JSON.stringify(filters));
+        } catch (e) {}
+        updateFilterUI();
+    }
+
+    function showFilterModal() {
+        document.getElementById("filterModal").classList.add("visible");
+        renderFilterList();
+    }
+
+    function closeFilterModal() {
+        document.getElementById("filterModal").classList.remove("visible");
+    }
+
+    function addFilter() {
+        const type = document.getElementById("newFilterType").value;
+        const pattern = document.getElementById("newFilterPattern").value;
+        const isRegex = document.getElementById("newFilterRegex").checked;
+        
+        if (!pattern) {
+            alert("Please enter a pattern");
+            return;
+        }
+        
+        filters.push({type, pattern, isRegex, enabled: true});
+        saveFilters();
+        renderFilterList();
+        document.getElementById("newFilterPattern").value = "";
+        
+        if (threadId > 0) applyFilters();
+    }
+
+    function removeFilter(index) {
+        filters.splice(index, 1);
+        saveFilters();
+        renderFilterList();
+        if (threadId > 0) applyFilters();
+    }
+
+    function toggleFilter(index) {
+        filters[index].enabled = !filters[index].enabled;
+        saveFilters();
+        renderFilterList();
+        if (threadId > 0) applyFilters();
+    }
+
+    function renderFilterList() {
+        const list = document.getElementById("filterList");
+        if (filters.length === 0) {
+            list.innerHTML = '<p style="font-style:italic; color: var(--text)">No filters added yet.</p>';
+            return;
+        }
+        
+        list.innerHTML = filters.map((f, i) => `
+            <div class="filter-item">
+                <input type="checkbox" ${f.enabled ? 'checked' : ''} onchange="toggleFilter(${i})">
+                <strong>${f.type}:</strong> "${esc(f.pattern)}" ${f.isRegex ? '(regex)' : ''}
+                <button class="btn" onclick="removeFilter(${i})" style="float:right">Delete</button>
+            </div>
+        `).join('');
+    }
+
+    function clearFilters() {
+        if (confirm("Clear all filters?")) {
+            filters = [];
+            saveFilters();
+            if (threadId > 0) applyFilters();
+        }
+    }
+
+    function exportFilters() {
+        const data = JSON.stringify(filters, null, 2);
+        const blob = new Blob([data], {type: 'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'chan-filters.json';
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    function importFilters() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'application/json';
+        input.onchange = e => {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = evt => {
+                try {
+                    const imported = JSON.parse(evt.target.result);
+                    if (Array.isArray(imported)) {
+                        filters = imported;
+                        saveFilters();
+                        renderFilterList();
+                        alert("Filters imported successfully!");
+                    }
+                } catch (err) {
+                    alert("Error importing filters: " + err.message);
+                }
+            };
+            reader.readAsText(file);
+        };
+        input.click();
+    }
+
+    function matchesFilter(post, filter) {
+        if (!filter.enabled) return false;
+        
+        let text = "";
+        switch(filter.type) {
+            case "name": text = post.name || ""; break;
+            case "tripcode": text = post.trip || ""; break;
+            case "subject": text = post.sub || ""; break;
+            case "comment": text = strip(post.com || ""); break;
+            case "filename": text = post.filename || ""; break;
+        }
+        
+        if (filter.isRegex) {
+            try {
+                const regex = new RegExp(filter.pattern, 'i');
+                return regex.test(text);
+            } catch (e) {
+                return false;
+            }
+        } else {
+            return text.toLowerCase().includes(filter.pattern.toLowerCase());
+        }
+    }
+
+    function applyFilters() {
+        perfStats.filtered = 0;
+        document.querySelectorAll('.post').forEach(postEl => {
+            const postId = postEl.id.replace('p', '');
+            const postData = window.currentThreadData?.posts?.find(p => p.no == postId);
+            
+            if (postData) {
+                const isFiltered = filters.some(f => matchesFilter(postData, f));
+                if (isFiltered) {
+                    postEl.classList.add('filtered');
+                    perfStats.filtered++;
+                } else {
+                    postEl.classList.remove('filtered');
+                }
+            }
+        });
+        updateStatusBar();
+    }
+
+    function updateFilterUI() {
+        const count = filters.filter(f => f.enabled).length;
+        if (count > 0) {
+            document.getElementById("filterControls").classList.remove("hidden");
+            document.getElementById("activeFiltersCount").textContent = `(${count} active)`;
+        } else {
+            document.getElementById("filterControls").classList.add("hidden");
+        }
+    }
+
+    // Auto Refresh
+    function setupAutoRefresh() {
+        if (autoRefreshInterval) {
+            clearInterval(autoRefreshInterval);
+            autoRefreshInterval = null;
+        }
+        
+        if (getSetting("autoRefresh", "0") === "1" && threadId > 0) {
+            autoRefreshInterval = setInterval(() => {
+                loadThread(board, threadId, true);
+            }, 60000);
+        }
+    }
+
+    // Formatting Functions
     function formatFileInfo(f, t) {
         if (!t) t = getSetting("fileFormat", "%n%e (%s, %r)");
-        let r = t.replace(/%n/g, esc(f.filename || "file")).replace(/%e/g, f.ext || "").replace(/%s/g, formatSize(f.fsize || 0)).replace(/%w/g, f.w || "?").replace(/%h/g, f.h || "?").replace(/%r/g, (f.w && f.h) ? (f.w + "x" + f.h) : "");
+        let r = t
+            .replace(/%n/g, esc(f.filename || "file"))
+            .replace(/%e/g, f.ext || "")
+            .replace(/%s/g, formatSize(f.fsize || 0))
+            .replace(/%w/g, f.w || "?")
+            .replace(/%h/g, f.h || "?")
+            .replace(/%r/g, (f.w && f.h) ? (f.w + "x" + f.h) : "");
         if (f.spoiler && getSetting("showSpoiler", "1") === "1") r = "[SPOILER] " + r;
-        return r
+        return r;
     }
 
     function formatDate(d, t) {
         if (!t) t = getSetting("dateFormat", "%m/%d/%y(%a)%H:%M:%S");
-        const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-            daysLong = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-            pad = n => n < 10 ? "0" + n : n;
-        return t.replace(/%Y/g, d.getFullYear()).replace(/%y/g, String(d.getFullYear()).slice(-2)).replace(/%m/g, pad(d.getMonth() + 1)).replace(/%d/g, pad(d.getDate())).replace(/%H/g, pad(d.getHours())).replace(/%I/g, pad(d.getHours() % 12 || 12)).replace(/%M/g, pad(d.getMinutes())).replace(/%S/g, pad(d.getSeconds())).replace(/%a/g, days[d.getDay()]).replace(/%A/g, daysLong[d.getDay()]).replace(/%p/g, d.getHours() >= 12 ? "PM" : "AM")
+        const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        const daysLong = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        const pad = n => n < 10 ? "0" + n : n;
+        return t
+            .replace(/%Y/g, d.getFullYear())
+            .replace(/%y/g, String(d.getFullYear()).slice(-2))
+            .replace(/%m/g, pad(d.getMonth() + 1))
+            .replace(/%d/g, pad(d.getDate()))
+            .replace(/%H/g, pad(d.getHours()))
+            .replace(/%I/g, pad(d.getHours() % 12 || 12))
+            .replace(/%M/g, pad(d.getMinutes()))
+            .replace(/%S/g, pad(d.getSeconds()))
+            .replace(/%a/g, days[d.getDay()])
+            .replace(/%A/g, daysLong[d.getDay()])
+            .replace(/%p/g, d.getHours() >= 12 ? "PM" : "AM");
     }
 
     function formatSize(b) {
         if (b < 1024) return b + " B";
         if (b < 1048576) return (b / 1024).toFixed(1) + " KB";
-        return (b / 1048576).toFixed(1) + " MB"
+        return (b / 1048576).toFixed(1) + " MB";
     }
 
+    // API Functions
     async function get(u) {
         try {
             const r = await fetch(PROXY + encodeURIComponent(u));
             if (!r.ok) throw new Error("Failed");
-            return await r.json()
+            return await r.json();
         } catch (e) {
             show("loader");
             document.getElementById("loader").textContent = "Error loading data";
-            return null
+            return null;
         }
     }
 
@@ -662,20 +1053,26 @@ Theme: <select id="theme-select" onchange="changeTheme(this.value)">
         if (prefetchCache[u]) return;
         prefetchCache[u] = true;
         setTimeout(() => {
-            fetch(PROXY + encodeURIComponent(u)).then(r => r.json()).then(() => {
-            }).catch(() => {
-            })
-        }, 100)
+            fetch(PROXY + encodeURIComponent(u))
+                .then(r => r.json())
+                .catch(() => {});
+        }, 100);
     }
 
+    // Board Loading
     async function loadBoards() {
         const d = await get(API + "/boards.json");
         if (!d) return;
         boards = d.boards;
         renderBoards(boards);
-        ["g", "v", "pol", "b"].forEach(b => prefetch(API + `/${b}/catalog.json`));
+        
+        // Prefetch popular boards
+        ["g", "v", "pol", "b", "a", "tv", "fit"].forEach(b => 
+            prefetch(API + `/${b}/catalog.json`)
+        );
+        
         const l = getSetting("lastBoard", "");
-        if (l) loadIndex(l)
+        if (l) loadIndex(l);
     }
 
     function renderBoards(l) {
@@ -688,175 +1085,255 @@ Theme: <select id="theme-select" onchange="changeTheme(this.value)">
             a.onmouseover = () => prefetch(API + `/${b.board}/catalog.json`);
             a.onclick = e => {
                 e.preventDefault();
-                loadIndex(b.board)
+                loadIndex(b.board);
             };
-            e.appendChild(a)
-        })
+            e.appendChild(a);
+        });
     }
 
-    document.getElementById("board-search").oninput = function (e) {
-        const q = e.target.value.toLowerCase(),
-            f = boards.filter(b => b.board.toLowerCase().indexOf(q) > -1 || b.title.toLowerCase().indexOf(q) > -1);
-        renderBoards(f)
+    document.getElementById("board-search").oninput = function(e) {
+        const q = e.target.value.toLowerCase();
+        const f = boards.filter(b => 
+            b.board.toLowerCase().indexOf(q) > -1 || 
+            b.title.toLowerCase().indexOf(q) > -1
+        );
+        renderBoards(f);
     };
 
+    // Index Loading
     async function loadIndex(b) {
         board = b;
         threadId = 0;
         document.title = "/" + b + "/ - Index";
         saveSetting("lastBoard", b);
         resetPerfStats();
+        
         hide("catalog");
         hide("thread");
         show("index");
         show("loader");
-        document.getElementById("nav").innerHTML = '<button class="btn" onclick="loadCatalog(\'' + b + '\')">Catalog</button><button class="btn" onclick="loadIndex(\'' + b + '\')">Index</button>';
+        
+        const headerHTML = `
+            <button class="btn" onclick="loadCatalog('${b}')">Catalog</button>
+            <button class="btn" onclick="loadIndex('${b}')">Index</button>
+            <button class="btn" onclick="showOptions()">Options</button>
+        `;
+        document.getElementById("nav").innerHTML = headerHTML;
         document.getElementById("view-mode").innerHTML = "";
+        
         const c = await get(API + `/${b}/catalog.json`);
         if (!c) return;
+        
         const e = document.getElementById("index");
         e.innerHTML = "";
+        
         c.forEach(p => {
             p.threads.forEach(t => {
                 const d = document.createElement("div");
                 d.className = "index-thread";
                 d.onclick = () => loadThread(b, t.no);
                 d.onmouseover = () => prefetch(API + `/${b}/thread/${t.no}.json`);
+                
                 let h = '';
                 if (t.sub) h += '<div class="op-subject">' + esc(t.sub) + '</div>';
+                
                 h += '<div class="op-info"><span class="postername">' + esc(t.name || "Anonymous") + '</span> ';
-                if (t.time) h += formatDate(new Date(t.time * 1000), getSetting("dateFormat", "%m/%d/%y(%a)%H:%M:%S")) + ' '; else h += t.now + ' ';
+                if (t.time) h += formatDate(new Date(t.time * 1000)) + ' ';
+                else h += t.now + ' ';
                 h += 'No.' + t.no + ' [<a href="#" onclick="event.stopPropagation(); loadThread(\'' + b + '\',' + t.no + ')">Reply</a>]</div>';
+                
                 if (t.tim) {
-                    const th = IMG_CDN + '/' + b + '/' + t.tim + 's.jpg', fl = IMG_CDN + '/' + b + '/' + t.tim + t.ext;
+                    const th = IMG_CDN + '/' + b + '/' + t.tim + 's.jpg';
+                    const fl = IMG_CDN + '/' + b + '/' + t.tim + t.ext;
                     h += '<div class="fileText">File: <a href="' + fl + '" target="_blank" onclick="event.stopPropagation()">' + formatFileInfo(t) + '</a></div>';
-                    h += '<div class="fileThumb"><a href="' + fl + '" target="_blank" onclick="event.stopPropagation()"><img data-src="' + th + '" data-full="' + fl + '" alt=""></a></div>'
+                    h += '<div class="fileThumb">';
+                    h += '<a href="' + fl + '" target="_blank" onclick="event.stopPropagation()">';
+                    h += '<img data-src="' + th + '" data-full="' + fl + '" alt="">';
+                    h += '</a>';
+                    h += '<a href="' + fl + '" download class="download-btn" onclick="event.stopPropagation()">↓</a>';
+                    h += '</div>';
                 }
+                
                 if (t.com) {
                     const s = strip(t.com);
                     h += '<blockquote>' + fmt(s.slice(0, 300));
                     if (s.length > 300) h += '...';
-                    h += '</blockquote>'
+                    h += '</blockquote>';
                 }
+                
                 h += '<div class="clear"></div>';
+                
                 if (t.replies > 5) {
-                    const o = t.replies - 5,
-                        oi = Math.max(0, t.images - (t.last_replies ? t.last_replies.filter(r => r.tim).length : 0));
+                    const o = t.replies - 5;
+                    const oi = Math.max(0, t.images - (t.last_replies ? t.last_replies.filter(r => r.tim).length : 0));
                     h += '<div class="omitted">' + o + ' post';
                     if (o > 1) h += 's';
                     if (oi > 0) {
                         h += ' and ' + oi + ' image';
-                        if (oi > 1) h += 's'
+                        if (oi > 1) h += 's';
                     }
-                    h += ' omitted. Click to view thread.</div>'
+                    h += ' omitted. Click to view thread.</div>';
                 }
+                
                 if (t.last_replies && t.last_replies.length > 0) {
                     t.last_replies.slice(-5).forEach(r => {
                         h += '<div class="preview-reply"><span class="postername">' + esc(r.name || "Anonymous") + '</span> ';
-                        if (r.time) h += formatDate(new Date(r.time * 1000), getSetting("dateFormat", "%m/%d/%y(%a)%H:%M:%S")) + ' '; else h += r.now + ' ';
+                        if (r.time) h += formatDate(new Date(r.time * 1000)) + ' ';
+                        else h += r.now + ' ';
                         h += 'No.' + r.no + '<br>';
                         if (r.com) {
                             const c = strip(r.com).slice(0, 200);
                             h += fmt(c);
-                            if (strip(r.com).length > 200) h += '...'
+                            if (strip(r.com).length > 200) h += '...';
                         }
-                        h += '</div>'
-                    })
+                        h += '</div>';
+                    });
                 }
+                
                 d.innerHTML = h;
-                e.appendChild(d)
-            })
+                e.appendChild(d);
+            });
         });
+        
         initObserver();
-        hide("loader")
+        hide("loader");
     }
 
+    // Catalog Loading
     async function loadCatalog(b) {
         board = b;
         threadId = 0;
         document.title = "/" + b + "/ - Catalog";
         saveSetting("lastBoard", b);
+        
         show("catalog");
         hide("index");
         hide("thread");
         show("loader");
-        document.getElementById("nav").innerHTML = '<button class="btn" onclick="loadCatalog(\'' + b + '\')">Catalog</button><button class="btn" onclick="loadIndex(\'' + b + '\')">Index</button>';
+        
+        const headerHTML = `
+            <button class="btn" onclick="loadCatalog('${b}')">Catalog</button>
+            <button class="btn" onclick="loadIndex('${b}')">Index</button>
+            <button class="btn" onclick="showOptions()">Options</button>
+        `;
+        document.getElementById("nav").innerHTML = headerHTML;
         document.getElementById("view-mode").innerHTML = "";
+        
         const d = await get(API + `/${b}/catalog.json`);
         if (!d) return;
+        
         const e = document.getElementById("catalog");
         e.innerHTML = '<div class="catalog-grid"></div>';
         const g = e.querySelector(".catalog-grid");
+        
         d.forEach(p => {
             p.threads.forEach(t => {
                 if (!t.sub && !t.com) return;
+                
                 const dv = document.createElement("div");
                 dv.className = "catalog-item";
                 dv.onmouseover = () => prefetch(API + `/${b}/thread/${t.no}.json`);
                 dv.onclick = () => loadThread(b, t.no);
+                
                 let h = '<small>' + t.no + '</small><br>';
                 if (t.tim) h += '<img data-src="' + IMG_CDN + '/' + b + '/' + t.tim + 's.jpg" alt=""><br>';
+                
                 const s = strip(t.sub || t.com || "");
                 h += '<b>' + (s.slice(0, 40) || "Thread #" + t.no) + '</b><br>';
                 h += '<div class="catalog-stats">R:' + t.replies + ' I:' + t.images + '</div>';
+                
                 dv.innerHTML = h;
-                g.appendChild(dv)
-            })
+                g.appendChild(dv);
+            });
         });
+        
         initObserver();
-        hide("loader")
+        hide("loader");
     }
 
-    async function loadThread(b, tid) {
+    // Thread Loading
+    async function loadThread(b, tid, silent = false) {
         board = b;
         threadId = tid;
         document.title = "/" + b + "/ - " + tid;
+        
         hide("catalog");
         hide("index");
         show("thread");
-        show("loader");
-        document.getElementById("nav").innerHTML = '<button class="btn" onclick="loadIndex(\'' + b + '\')">← Back</button><button class="btn" onclick="loadThread(\'' + b + '\',' + tid + ')">Refresh</button>';
-        document.getElementById("view-mode").innerHTML = '<button class="btn" id="tree-btn" onclick="toggleTree()">Tree: ' + (treeMode ? 'ON' : 'OFF') + '</button>';
+        if (!silent) show("loader");
+        
+        const headerHTML = `
+            <button class="btn" onclick="loadIndex('${b}')">← Back</button>
+            <button class="btn" onclick="loadThread('${b}',${tid})">Refresh</button>
+            <button class="btn" onclick="showOptions()">Options</button>
+        `;
+        document.getElementById("nav").innerHTML = headerHTML;
+        
+        const viewModeHTML = `
+            <button class="btn" id="tree-btn" onclick="toggleTree()">Tree: ${treeMode ? 'ON' : 'OFF'}</button>
+        `;
+        document.getElementById("view-mode").innerHTML = viewModeHTML;
+        
         const d = await get(API + `/${b}/thread/${tid}.json`);
         if (!d) return;
+        
+        window.currentThreadData = d;
+        
         const e = document.getElementById("thread");
         e.innerHTML = "";
+        
         d.posts.forEach(post => {
             const dv = document.createElement("div");
             dv.className = "post " + (post.resto === 0 ? "op" : "reply");
             dv.id = "p" + post.no;
+            
             let h = '<div class="postInfo"><span class="postername">' + esc(post.name || "Anonymous") + '</span> ';
-            if (post.time) h += formatDate(new Date(post.time * 1000), getSetting("dateFormat", "%m/%d/%y(%a)%H:%M:%S")) + ' '; else h += post.now + ' ';
+            if (post.time) h += formatDate(new Date(post.time * 1000)) + ' ';
+            else h += post.now + ' ';
             h += 'No.<a href="#p' + post.no + '" class="quotelink" data-id="' + post.no + '">' + post.no + '</a></div>';
+            
             if (post.tim) {
-                const th = IMG_CDN + '/' + b + '/' + post.tim + 's.jpg',
-                    fl = IMG_CDN + '/' + b + '/' + post.tim + post.ext;
+                const th = IMG_CDN + '/' + b + '/' + post.tim + 's.jpg';
+                const fl = IMG_CDN + '/' + b + '/' + post.tim + post.ext;
                 h += '<div class="fileText">File: <a href="' + fl + '" target="_blank">' + formatFileInfo(post) + '</a></div>';
-                h += '<div class="fileThumb"><a href="' + fl + '" target="_blank"><img data-src="' + th + '" data-full="' + fl + '" alt=""></a></div>'
+                h += '<div class="fileThumb">';
+                h += '<a href="' + fl + '" target="_blank">';
+                h += '<img data-src="' + th + '" data-full="' + fl + '" alt="">';
+                h += '</a>';
+                h += '<a href="' + fl + '" download class="download-btn">↓</a>';
+                h += '</div>';
             }
+            
             if (post.com) h += '<blockquote>' + fmt(post.com) + '</blockquote>';
             h += '<div class="clear"></div>';
+            
             dv.innerHTML = h;
             e.appendChild(dv);
+            
             dv.querySelectorAll("a.quotelink").forEach(link => {
                 const pid = link.getAttribute("data-id");
                 if (pid) {
                     link.onclick = ev => {
                         ev.preventDefault();
-                        highlightPost(pid)
-                    }
+                        highlightPost(pid);
+                    };
                 } else {
                     const m = link.textContent.match(/>>(\d+)/);
-                    if (m) link.onclick = ev => {
-                        ev.preventDefault();
-                        highlightPost(m[1])
+                    if (m) {
+                        link.onclick = ev => {
+                            ev.preventDefault();
+                            highlightPost(m[1]);
+                        };
                     }
                 }
-            })
+            });
         });
+        
         initObserver();
         hide("loader");
-        applyTreeMode()
+        applyTreeMode();
+        applyFilters();
+        setupAutoRefresh();
     }
 
     function highlightPost(pid) {
@@ -865,7 +1342,7 @@ Theme: <select id="theme-select" onchange="changeTheme(this.value)">
             document.querySelectorAll(".post.highlighted").forEach(p => p.classList.remove("highlighted"));
             t.classList.add("highlighted");
             t.scrollIntoView({behavior: "smooth", block: "center"});
-            setTimeout(() => t.classList.remove("highlighted"), 2000)
+            setTimeout(() => t.classList.remove("highlighted"), 2000);
         }
     }
 
@@ -873,96 +1350,121 @@ Theme: <select id="theme-select" onchange="changeTheme(this.value)">
         treeMode = !treeMode;
         saveSetting("treeMode", treeMode ? "1" : "0");
         document.getElementById("tree-btn").textContent = "Tree: " + (treeMode ? "ON" : "OFF");
-        applyTreeMode()
+        applyTreeMode();
     }
 
     function applyTreeMode() {
         document.querySelectorAll(".reply").forEach(r => {
-            if (treeMode) r.style.display = "none"; else r.style.display = ""
-        })
+            r.style.display = treeMode ? "none" : "";
+        });
     }
 
+    // Text Formatting
     function fmt(t) {
-        return t.replace(/<br>/g, "\n").replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&amp;/g, "&").replace(/\n/g, "<br>").replace(/^>(.+)/gm, '<span class="quote">&gt;$1</span>').replace(/>>(\d+)/g, '<a href="#p$1" class="quotelink">&gt;&gt;$1</a>')
+        return t
+            .replace(/<br>/g, "\n")
+            .replace(/&gt;/g, ">")
+            .replace(/&lt;/g, "<")
+            .replace(/&quot;/g, '"')
+            .replace(/&#039;/g, "'")
+            .replace(/&amp;/g, "&")
+            .replace(/\n/g, "<br>")
+            .replace(/^>(.+)/gm, '<span class="quote">&gt;$1</span>')
+            .replace(/>>(\d+)/g, '<a href="#p$1" class="quotelink">&gt;&gt;$1</a>');
     }
 
     function strip(h) {
         const d = document.createElement("div");
         d.innerHTML = h;
-        return (d.textContent || "").trim()
+        return (d.textContent || "").trim();
     }
 
     function esc(t) {
         const d = document.createElement("div");
         d.textContent = t;
-        return d.innerHTML
+        return d.innerHTML;
     }
 
+    // Image Observer
     function initObserver() {
         if (imgObserver) imgObserver.disconnect();
+        
         imgObserver = new IntersectionObserver(e => {
             e.forEach(en => {
                 if (en.isIntersecting) {
-                    const i = en.target, s = i.getAttribute("data-src");
+                    const i = en.target;
+                    const s = i.getAttribute("data-src");
                     if (s) {
                         i.src = s;
-                        i.removeAttribute("data-src")
+                        i.removeAttribute("data-src");
                     }
-                    imgObserver.unobserve(i)
+                    imgObserver.unobserve(i);
                 }
-            })
+            });
         }, {rootMargin: "100px"});
-        document.querySelectorAll("img[data-src]").forEach(i => imgObserver.observe(i))
+        
+        document.querySelectorAll("img[data-src]").forEach(i => imgObserver.observe(i));
     }
 
+    // Image Preview
     document.addEventListener("mouseover", e => {
+        if (getSetting("imageHover", "1") !== "1") return;
         if (e.target.tagName === "IMG" && e.target.getAttribute("data-full")) {
             const p = document.getElementById("imgPreview");
             p.src = e.target.getAttribute("data-full");
             p.style.display = "block";
             document.onmousemove = ev => {
                 p.style.left = (ev.pageX + 20) + "px";
-                p.style.top = (ev.pageY + 20) + "px"
-            }
+                p.style.top = (ev.pageY + 20) + "px";
+            };
         }
     });
+
     document.addEventListener("mouseout", e => {
         if (e.target.tagName === "IMG" && e.target.getAttribute("data-full")) {
             document.getElementById("imgPreview").style.display = "none";
-            document.onmousemove = null
+            document.onmousemove = null;
         }
     });
-    window.onscroll = function () {
+
+    // Scroll to Top
+    window.onscroll = function() {
         const b = document.getElementById("scrollTop");
-        if (window.pageYOffset > 300) b.style.display = "block"; else b.style.display = "none"
+        b.style.display = window.pageYOffset > 300 ? "block" : "none";
     };
 
     function scrollTop() {
-        window.scrollTo({top: 0, behavior: "smooth"})
+        window.scrollTo({top: 0, behavior: "smooth"});
     }
 
+    // Theme Management
     function changeTheme(t) {
         document.body.className = t === "yotsuba" ? "" : "theme-" + t;
-        saveSetting("theme", t)
+        saveSetting("theme", t);
     }
 
-    const savedTheme = getSetting("theme", "yotsuba");
-    document.getElementById("theme-select").value = savedTheme;
-    changeTheme(savedTheme);
-    treeMode = getSetting("treeMode", "0") === "1";
-
+    // Utility Functions
     function show(id) {
-        document.getElementById(id).classList.remove("hidden")
+        document.getElementById(id).classList.remove("hidden");
     }
 
     function hide(id) {
-        document.getElementById(id).classList.add("hidden")
+        document.getElementById(id).classList.add("hidden");
     }
 
+    // Initialize
+    const savedTheme = getSetting("theme", "yotsuba");
+    document.getElementById("theme-select").value = savedTheme;
+    changeTheme(savedTheme);
+    
+    treeMode = getSetting("treeMode", "0") === "1";
+    
     if (getSetting("statusBar", "0") === "1") {
         document.getElementById("statusBar").classList.add("visible");
-        initPerformanceMonitor()
+        initPerformanceMonitor();
     }
+    
+    loadFilters();
     loadBoards();
 </script>
 </body>
